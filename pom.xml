@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <name>HexagonalArchitecture :: Parent</name>
+    <groupId>org.hexagonal.architecture.example</groupId>
+    <artifactId>hexagonal-architecture</artifactId>
+    <version>MANAGE_BY_EXTENSION</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>app</module>
+        <module>domain</module>
+        <module>rest-api</module>
+        <module>web</module>
+        <module>persistence</module>
+    </modules>
+
+    <properties>
+        <!-- Custom properties -->
+        <java.version>21</java.version>
+
+        <maven.lib.mapstruct.version>1.6.0.Beta1</maven.lib.mapstruct.version>
+        <maven.lib.lombok-mapstruct-binding.version>0.2.0</maven.lib.lombok-mapstruct-binding.version>
+
+        <maven.plugin.openapi-generator.version>7.1.0</maven.plugin.openapi-generator.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project modules -->
+            <dependency>
+                <groupId>org.hexagonal.architecture.example</groupId>
+                <artifactId>app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hexagonal.architecture.example</groupId>
+                <artifactId>domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hexagonal.architecture.example</groupId>
+                <artifactId>web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hexagonal.architecture.example</groupId>
+                <artifactId>rest-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hexagonal.architecture.example</groupId>
+                <artifactId>persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Tools-->
+            <dependency>
+                    <groupId>org.mapstruct</groupId>
+                    <artifactId>mapstruct</artifactId>
+                    <version>${maven.lib.mapstruct.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Tools -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${maven.plugin.openapi-generator.version}</version>
+                    <configuration>
+                        <!-- https://openapi-generator.tech/docs/generators/spring -->
+                        <!-- target output path (default is ${project.build.directory}/generated-sources/openapi -->
+                        <output>${project.build.directory}/generated-sources</output>
+                        <generatorName>spring</generatorName>
+                        <library>spring-boot</library>
+                        <apiNameSuffix>Api</apiNameSuffix>
+                        <modelNameSuffix>Dto</modelNameSuffix>
+
+                        <!-- ... A lot of parameters and configuration omitted here, look in the original file ... -->
+                        <!-- configuration -->
+                        <configOptions>
+                            <sourceFolder>plugins</sourceFolder>
+                            <interfaceOnly>true</interfaceOnly>
+                            <serializableModel>true</serializableModel>
+
+                            <openApiNullable>false</openApiNullable>
+                            <useBeanValidation>false</useBeanValidation>
+                            <skipDefaultInterface>true</skipDefaultInterface>
+                            <useOptional>true</useOptional>
+                            <useTags>true</useTags>
+
+                            <documentationProvider>none</documentationProvider>
+                            <useSpringBoot3>true</useSpringBoot3>
+                        </configOptions>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <release>${java.version}</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${maven.lib.mapstruct.version}</version>
+                        </path>
+                        <dependency>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${maven.lib.lombok-mapstruct-binding.version}</version>
+                        </dependency>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-Amapstruct.defaultComponentModel=spring</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: hexagonal-architecture
+  datasource:
+    url: jdbc:h2:file:./target/db/embedded;AUTO_SERVER=true
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    open-in-view: true
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop

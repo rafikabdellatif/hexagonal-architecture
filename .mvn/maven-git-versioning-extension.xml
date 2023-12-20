@@ -1,0 +1,22 @@
+<configuration xmlns="https://github.com/qoomon/maven-git-versioning-extension"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="https://github.com/qoomon/maven-git-versioning-extension https://qoomon.github.io/maven-git-versioning-extension/configuration-7.0.0.xsd">
+
+    <!-- Ref is check depending on declaration order -->
+    <refs>
+        <!-- Use by CI to provide tag version using -Dgit.tag=xxx  -->
+        <ref type="tag">
+            <pattern>.+</pattern>
+            <version>${ref}</version>
+        </ref>
+
+        <!-- Match all branch type when no tag provide to build a version depending on branch name -->
+        <!-- branch name: feature/for-example -> version: feature-for-example-SNAPSHOT -->
+        <!-- branch name: develop             -> version: develop-SNAPSHOT -->
+        <ref type="branch">
+            <pattern>.+</pattern>
+            <version>${ref}-SNAPSHOT</version>
+        </ref>
+    </refs>
+
+</configuration>
