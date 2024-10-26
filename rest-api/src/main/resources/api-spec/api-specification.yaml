@@ -6,7 +6,7 @@ info:
 
 paths:
   '/add-order':
-    put:
+    post:
       tags:
         - Order
       summary: add an order
