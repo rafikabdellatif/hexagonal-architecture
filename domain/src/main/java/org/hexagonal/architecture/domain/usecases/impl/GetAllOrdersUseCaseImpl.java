@@ -1,6 +1,5 @@
 package org.hexagonal.architecture.domain.usecases.impl;
 
-import jdk.jfr.Registered;
 import lombok.RequiredArgsConstructor;
 import org.hexagonal.architecture.domain.annotations.UseCase;
 import org.hexagonal.architecture.domain.models.Order;
