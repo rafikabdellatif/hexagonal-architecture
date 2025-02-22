@@ -17,13 +17,13 @@ public class ExecutionPlan {
     public static class Builder {
         private final List<ExecutionBatch> batches = new ArrayList<>();
 
-        public Builder addSequentialBatch(UseCaseName... controlNames) {
-            batches.add(new ExecutionBatch(List.of(controlNames), false));
+        public Builder addSequentialBatches(UseCaseName... useCases) {
+            batches.add(new ExecutionBatch(List.of(useCases), false));
             return this;
         }
 
-        public Builder addParallelBatch(UseCaseName... controlNames) {
-            batches.add(new ExecutionBatch(List.of(controlNames), true));
+        public Builder addParallelBatches(UseCaseName... useCases) {
+            batches.add(new ExecutionBatch(List.of(useCases), true));
             return this;
         }
 
