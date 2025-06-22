@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.hexagonal.architecture.domain.usecases.AddOrderUseCase;
 import org.hexagonal.architecture.domain.usecases.GetAllOrdersUseCase;
 import org.hexagonal.architecture.domain.usecases.GetOrderUseCase;
+
+
+import org.hexagonal.architecture.domain.usecases.patterns.executionplan.PlanExecutorUseCase;
 import org.hexagonal.architecture.rest.api.controllers.OrderApi;
 import org.hexagonal.architecture.rest.api.dtos.OrderDto;
 import org.hexagonal.architecture.web.mappers.OrderMapper;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderController implements OrderApi {
 
+    private final PlanExecutorUseCase planExecutorUseCase;
     private final AddOrderUseCase addOrderUseCase;
     private final GetOrderUseCase getOrderUseCase;
     private final GetAllOrdersUseCase getAllOrdersUseCase;
@@ -25,6 +29,12 @@ public class OrderController implements OrderApi {
     @Override
     public ResponseEntity<OrderDto> addOrder(final OrderDto orderDto) {
         return ResponseEntity.ok(mapper.toDto(addOrderUseCase.apply(mapper.toModel(orderDto))));
+    }
+
+    @Override
+    public ResponseEntity<Void> checkOrder(OrderDto orderDto) {
+        planExecutorUseCase.execute(mapper.toModel(orderDto));
+        return ResponseEntity.ok().build();
     }
 
     @Override

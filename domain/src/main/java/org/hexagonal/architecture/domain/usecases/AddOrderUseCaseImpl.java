@@ -1,21 +1,18 @@
-package org.hexagonal.architecture.domain.usecases.impl;
+package org.hexagonal.architecture.domain.usecases;
 
 import lombok.RequiredArgsConstructor;
 import org.hexagonal.architecture.domain.annotations.UseCase;
 import org.hexagonal.architecture.domain.models.Order;
 import org.hexagonal.architecture.domain.ports.OrderPort;
-import org.hexagonal.architecture.domain.usecases.GetAllOrdersUseCase;
-
-import java.util.Set;
 
 @UseCase
 @RequiredArgsConstructor
-public class GetAllOrdersUseCaseImpl implements GetAllOrdersUseCase {
+public class AddOrderUseCaseImpl implements AddOrderUseCase {
 
     private final OrderPort port;
 
     @Override
-    public Set<Order> apply() {
-        return port.getAll();
+    public Order apply(Order order) {
+        return port.save(order);
     }
 }

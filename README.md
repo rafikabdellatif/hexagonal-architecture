@@ -15,7 +15,7 @@ DDD (Domain Driven Design) refers to business-driven design. It is a software de
 
 ## Requirement Stack
 
-**Java 21, Spring Boot 3.2.0, Apache Maven 3.9.6**
+**Java 23, Spring Boot 3.4.0, Apache Maven 3.9.6**
 
 **Dependencies:** Lombok, Mapstruct, OpenAPI generator plugin
 

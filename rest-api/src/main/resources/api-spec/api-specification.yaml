@@ -5,6 +5,22 @@ info:
   version: 0.0.1
 
 paths:
+  '/check':
+    post:
+      tags:
+        - Order
+      summary: check order
+      operationId: checkOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        200:
+          description: 'OK'
+
   '/add-order':
     post:
       tags:
